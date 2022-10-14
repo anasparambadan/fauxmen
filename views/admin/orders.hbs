@@ -1,0 +1,146 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+<div class="container mt-3 ">
+  <table id="example" class="table " style="width:100%">
+    <thead class="thead-light ">
+      <tr>
+        <th>Sl.No</th>
+        <th>Customer</th>
+        <th>Email</th>
+        <th>order</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+        <th>Payment Methode</th>
+        <th>order Status</th>
+        <th>Delivery Status</th>
+        <th>Change Status</th>
+        <th>Order Date</th>
+        <th>Cancel Orders</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orders}}
+      <tr >
+        <td style="text-align: center;vertical-align: middle;">{{inc @index}}</td>
+        <td style="text-align: center;vertical-align: middle;">{{this.userId.name}} <br> {{this.userId.phonenumber}}</td>
+        <td style="text-align: center;vertical-align: middle;">{{this.userId.email}}</td>
+        <td style="text-align: center;vertical-align: middle;">{{#each this.orderitems}} {{this.productId.productname}} {{/each}}</td>
+        <td style="text-align: center;vertical-align: middle;">{{#each this.orderitems}}{{this.quantity}} <br> {{/each}}</td>
+        <td style="text-align: center;vertical-align: middle;">{{this.grandtotal}}</td>
+        <td style="text-align: center;vertical-align: middle;" >{{this.paymentMethod}}</td>
+        <td style="text-align: center;vertical-align: middle;">{{this.productStatus}}</td>
+        <td style="text-align: center;vertical-align: middle;">{{this.deliveryStatus}}</td>
+        <td style="text-align: center;vertical-align: middle;">
+          {{#if (eq this.productStatus 'Pending')}}
+
+          <span style="font-weight: 600;"><button type="button" class="btn btn-sm  border-radius"
+              onclick="shiporder('{{this._id}}');return confirm('Change ststus to shipped ?')"
+              style=" background-color: rgb(255, 224, 151);">Pending</button></span>
+
+          {{/if}}
+
+          {{#if (eq this.productStatus 'Shipped')}}
+          <span style="font-weight: 600;"><button type="button" class="btn btn-sm  border-radius"
+              onclick="delivered('{{this._id}}');return confirm('Change ststus to Delivered ?')"
+              style=" background-color: rgb(195, 233, 255);">shipped</button></span>
+          {{/if}}
+
+          {{#if (eq this.productStatus "Delivered")}}
+
+          <h6 class="text-success">Delivered</h6>
+
+          {{/if}}
+
+        </td>
+        <td style="text-align: center;vertical-align: middle;">{{format this.createdAt}}</td>
+        <td style="color: red;text-align: center;vertical-align: middle;">
+          {{#unless (eq this.productStatus "Cancelled")}}<span style="font-weight: 600;"><button type="button"
+              class="btn btn-sm  btn-danger border-radius"
+              onclick="cancelorders('{{this._id}}');return confirm('All items in this order will be cancelled ,Are you sure you want to Cancel  ?')"
+              style=" background-color: red;">Cancel</button></span>
+          {{/unless}}
+          {{#if (eq this.productStatus "Cancelled")}}
+          <h6 class="text-danger">Cancelled</h6>
+          {{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Customer</th>
+        <th>Email</th>
+        <th>order</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+        <th>Payment Methode</th>
+        <th>order Status</th>
+        <th>Delivery Status</th>
+        <th>Change Status</th>
+        <th>Order Date</th>
+        <th>Cancel Orders</th>
+
+      </tr>
+    </tfoot>
+  </table>
+
+
+</div>
+
+
+<script>
+  $(document).ready(function () {
+    $('#example').DataTable();
+  });
+
+
+
+
+  function cancelorders(id) {
+    console.log("axios response", id)
+    axios({
+      method: 'post',
+      url: '/cancelorder/' + id
+
+    }).then((response) => {
+      console.log(response, 'this is response');
+
+      location.reload()
+    }).catch((error) => {
+      console.log(error, "catch error at delivered axios.")
+    })
+  }
+
+  function shiporder(id) {
+    console.log("axios response", id)
+    axios({
+      method: 'post',
+      url: '/admin/shiporder/' + id
+
+    }).then((response) => {
+      console.log(response, 'this is response');
+
+      location.reload()
+    }).catch((error) => {
+      console.log(error, "catch error at delivered axios.")
+    })
+  }
+
+
+  function delivered(id) {
+    console.log("axios response shipped", id)
+    axios({
+      method: 'post',
+      url: '/admin/delivered/' + id
+
+    }).then((response) => {
+      console.log(response, 'this is response');
+
+      location.reload()
+    }).catch((error) => {
+      console.log(error, "catch error at delivered axios.")
+    })
+  }
+
+</script>

@@ -1,0 +1,38 @@
+<div class="container mt-5">
+
+  <a href="/admin/addcatergory" class="btn btn-primary mx-auto mb-3">Add Category</a>
+
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Sl.No</th>
+        <th scope="col">Category</th>
+        <th scope="col">Actions</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {{#each response}}
+      <tr>
+        <td scope="row">{{inc @index}}</td>
+        <td>{{this.categoryname}}</td>
+        <td>
+
+          <a class="btn btn-success" href="/admin/updatecategory/{{this._id}}">
+            Update
+          </a>
+
+          <a class="btn btn-danger" href="/admin/delete-category/{{this._id}}"
+            onclick="return confirm('Are you sure you want to Delete category {{this.categoryname}} ?')">
+            Delete
+          </a>
+
+
+        </td>
+
+
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

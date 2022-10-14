@@ -1,0 +1,11 @@
+
+<form action="/admin/updatecategory/{{categorydata._id}}" method="post" class="container">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Category name</label>
+    <input type="text" class="form-control" placeholder="Enter New category" name="categoryname" value="{{categorydata.catogoryname}}">
+    <br>
+    {{#if categoryexist}}
+    <p class='text-danger'>Category already exist</p>
+    {{/if}}
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>

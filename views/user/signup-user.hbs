@@ -1,0 +1,172 @@
+<style>
+  body{
+    margin-top: 0px !important;
+  }
+  .card{
+    background-color: rgb(56, 89, 137);
+    border-top-right-radius: 50rem;
+    border-bottom-right-radius: 10px;
+
+ 
+  }
+</style>
+<script src="https://kit.fontawesome.com/c8236f4a1b.js" crossorigin="anonymous"></script>
+
+<section class="h-100" style="background-color: rgb(32, 3, 43);">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-white mx-auto mt-4"  >
+          <div class="card-body p-md-4 ">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold  mx-1 mx-md-4 ">Sign up</p>
+                
+
+                <form action="/signup" method="post" class="mx-1 mx-md-4" id="signupForm">
+                {{#if exist}}
+                <h5 style="color: rgb(255, 139, 139); font-weight: 400;" class="text-center">User already exist....</h5>
+                {{/if}}
+
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    
+                    
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+
+                      
+                      <label class="form-label" for="name">Name</label>
+                      <input type="text" id="name" class="form-control" name="name">
+                      
+
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+
+                      <label class="form-label" for="email">Email</label>
+                      <input type="email" id="email" class="form-control" name="email" >
+                      
+
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+
+                      <label class="form-label" for="password">Password</label>
+                      <input type="password" id="password" class="form-control" name="password">
+                      <input type="text" id="status" class="form-control" name="status" value="false" 
+                      hidden style="background-color: aqua;">
+                      
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+
+                      <label class="form-label" for="confirm_password">Conform Password</label>
+                      <input type="password" id="confirm_password" class="form-control" name="confirm_password">
+                      
+
+                    </div>
+                  </div>
+                
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <i class="fa-solid fa-mobile-button fa-lg me-3 fa-fw"></i>
+                    
+                  
+                    <div class="form-outline flex-fill mb-0">
+
+                      <label class="form-label" for="phonenumber">Mobile Number</label>
+                      <input type="password" id="phonenumber" class="form-control" name="phonenumber">
+                      
+
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
+                    <button type="submit" class="btn btn-lg mt-2" style="background-color:rgb(42, 158, 88) ; color: white; border-radius: 10px; ">Register</button>
+                  </div>
+
+                </form>
+
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="images/kindpng_7327989.png"
+                  class="img-fluid" alt="Sample image">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ <script>
+        $().ready(function () {
+ 
+            $("#signupForm").validate({
+                // in 'rules' user have to specify all the constraints for respective fields
+                rules: {
+                    
+                    name: {
+                        required: true,
+                        minlength: 2 //for length of lastname
+                    },
+                    password: {
+                        required: true,
+                        minlength: 5
+                    },
+                    confirm_password: {
+                        required: true,
+                        minlength: 5,
+                        equalTo: "#password" //for checking both passwords are same or not
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phonenumber:{
+                        required:true,
+                        number:true,
+                        minlength:10,
+                        maxlength:10,
+                        
+                    }
+                    
+                },
+                // in 'messages' user have to specify message as per rules
+                messages: {
+                    
+                    username: {
+                        required: " Please enter a username",
+                        minlength: " Your username must consist of at least 2 characters"
+                    },
+                    password: {
+                        required: " Please enter a password",
+                        minlength: " Your password must be consist of at least 5 characters"
+                    },
+                    confirm_password: {
+                        required: " Please enter a password",
+                        minlength: " Your password must be consist of at least 5 characters",
+                        equalTo: " Please enter the same password as above"
+                    },
+                    phonenumber:{
+                        required: " Please enter a phone number",
+                        minlength: " phone number must be of 10 numbers",
+                        maxlength: " phone number must be of 10 numbers",
+                    }
+                    
+                }
+            });
+        });
+ 
+    </script>

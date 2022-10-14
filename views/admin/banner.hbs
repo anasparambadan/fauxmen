@@ -1,0 +1,163 @@
+<div style="text-align: center;">
+    <a href="" data-toggle="modal" data-target="#ModalCenter1">
+        <ion-icon name="add-circle-outline" style="color: green;"></ion-icon>Add Banner
+    </a>
+
+    {{!-- ........................Modal add address............................ --}}
+
+    <div class="modal fade" id="ModalCenter1" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLongTitle">Add Banners</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="/admin/addbanner" method="post" id="bannerform" enctype="multipart/form-data">
+                    <div class="modal-body">
+
+
+                        {{!-- <form action="/checkout" method="post" id="AddressForm"> --}}
+
+                            <div class="form-row" style="margin-bottom: 20px;">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Banner Title"
+                                        name="bannerheading" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-bottom: 20px;">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Banner sub-Title"
+                                        name="bannersubheading" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-bottom: 20px;">
+                                <div class="col">
+                                    <input type="text" class="form-control  " placeholder="Banner description"
+                                        name="description" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-bottom: 20px;">
+
+                                <label for="exampleFormControlFile1" class="ml-1">Add Image</label>
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image"
+                                    required>
+
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <button type="submit" class="btn btn-primary">ADD</button>
+                    </div>
+
+                </form>
+
+                {{!-- ................................ --}}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">sl.no</th>
+            <th scope="col">Title</th>
+            <th scope="col">Sub-Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col">Edit/Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each bannerDetails}}
+        <tr>
+            <th scope="row">{{inc @index}}</th>
+            <td>{{this.bannerheading}}</td>
+            <td>{{this.bannersubheading}}</td>
+            <td>{{this.description}}</td>
+            <td> <img src="/bannerimages/{{this.image.[0]}}" alt="" width="50em"></td>
+            <td>
+                
+                <a href="" class="btn btn-success" data-toggle="modal" data-target="#editbanner">Edit
+                </a>
+
+                <a class="btn btn-danger" href="/admin/deletebanner/{{this._id}}"
+                    onclick="return confirm('Are you sure you want to Delete ?')">Delete</a>
+            </td>
+
+        </tr>
+
+        <div class="modal fade" id="editbanner" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLongTitle">Add Banners</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <form action="/admin/editbanner/{{this._id}}" method="post" id="bannerform" enctype="multipart/form-data">
+                        <div class="modal-body">
+
+
+                          
+
+                                <div class="form-row" style="margin-bottom: 20px;">
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Banner Title"
+                                            name="bannerheading" required>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-bottom: 20px;">
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Banner sub-Title"
+                                            name="bannersubheading" required>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-bottom: 20px;">
+                                    <div class="col">
+                                        <input type="text" class="form-control  " placeholder="Banner description"
+                                            name="description" required>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-bottom: 20px;">
+
+                                    <label for="exampleFormControlFile1" class="ml-1">Add Image</label>
+                                    <input type="file" class="form-control-file" id="exampleFormControlFile1"
+                                        name="image" required>
+
+                                </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+
+                    </form>
+
+                    {{!-- ................................ --}}
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        {{/each}}
+    </tbody>
+</table>

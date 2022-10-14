@@ -1,0 +1,98 @@
+<div class="card">
+  <div class="card-header py-3">
+    <div class="row">
+      <div class="col">
+        <h4><b>Wishlist</b></h4>
+      </div>
+      <div class="col align-self-center text-right text-muted">{{itemscount}} Items</div>
+    </div>
+  </div>
+  <div class="card-body">
+    {{#each items}}
+    {{#each this.Wishlistdata}}
+    <!-- Single item -->
+
+
+
+    <div class="d-flex justify-content-around align-items-center">
+      <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+        <!-- Image -->
+        <a class="bg-image hover-overlay hover-zoom ripple rounded" href="/single_product/{{this.productId._id}}"
+          data-mdb-ripple-color="light">
+          <img src="/productimages/{{this.productId.image.[0]}}" class="" alt="Blue Jeans Jacket" width="50em" />
+          
+            <div class="float-right" style="text-decoration: none;color:black !important"><strong>{{this.productId.productname}}</strong></div>
+         
+        </a>
+        
+        <!-- Image -->
+      </div>
+
+
+
+      
+      <div><s><span
+            class="text-danger">{{this.productId.price}}</span></s>&nbsp;&nbsp;<strong class="text-primary" style="font-size: 20px;">{{this.productId.discountprice}}</strong>&nbsp;&nbsp;<span
+          class="text-success">{{this.productId.percentage}}%off</span>
+      </div>
+      <div><a class="btn btn-warning btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item"
+          onclick="deleteitem('{{this.productId._id}}')" style="cursor: pointer;">
+          <i class="fas fa-trash"></i></a>
+      </div>
+      <div>
+        <a type="button" href="/addtocarts/{{this.productId._id}}" class="btn btn-success">Add to Cart</a>
+      </div>
+
+
+    </div>
+    <hr>
+
+
+
+    <!-- Single item -->
+    {{/each}}
+    {{/each}}
+
+  </div>
+  <script>
+    function deleteitem(id) {
+
+      swal({
+        title: "Are you sure?",
+
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+        .then(async (willDelete) => {
+          if (willDelete) {
+            console.log(id, 'ififiififiididiidididididiidiidid')
+
+            await axios({
+              method: 'get',
+              url: '/deleteitem/' + id
+
+            }).then((response) => {
+              console.log(response, 'this is response');
+
+              location.reload()
+            }).catch((error) => {
+              console.log(error, "catch error at delivered axios.")
+            })
+
+            swal("Item removed :( !", {
+              icon: "success",
+            });
+          } else {
+            swal("Thank you!");
+          }
+        })
+
+
+
+
+
+
+
+    }
+  </script>

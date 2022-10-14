@@ -1,0 +1,182 @@
+<div><a class="btn btn-outline-info ml-5 my-3" data-toggle="modal" data-target="#add_coupon">
+        <ion-icon name="add-circle-outline" style="color: green;"></ion-icon>Add Coupon
+    </a></div>
+<div style="text-align: center;"> 
+    
+
+    {{!-- ........................Modal add address............................ --}}
+
+    <div class="modal fade" id="add_coupon" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLongTitle">New Coupone</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="/admin/add_coupon" method="post" id="couponform" >
+                    <div class="modal-body">
+
+
+
+                        <div class="form-row" style="margin-bottom: 20px;">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Coupon Name" name="Couponsname"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 20px;">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Coupon Code"
+                                    name="Couponscode" required>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 20px;">
+                            <div class="col">
+                                <input type="text" class="form-control  " placeholder="Discount price"
+                                    name="Discountsprice" required>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 20px;">
+                            <div class="col">
+                                <input type="text" class="form-control  " placeholder="Discount price limit"
+                                    name="Discountpriceslimit" required>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 20px;">
+                            <div class="col">
+                                <input type="text" class="form-control  " placeholder="Coupon limit"
+                                    name="Couponslimit" required>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 20px;">
+                            <div class="col">
+                                <input type="text" class="form-control  " placeholder="Date"
+                                    name="Dates" required>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <button type="submit" class="btn btn-primary">ADD</button>
+                    </div>
+
+                </form>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered">
+    <thead>
+        
+        <tr>
+            <th scope="col">sl.no</th>
+            <th scope="col">Coupon name</th>
+            <th scope="col">Coupone code</th>
+            <th scope="col">Dicount</th>
+            <th scope="col">Discount limit</th>
+            <th scope="col">Limit</th>
+            <th scope="col">Date</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each allcoupons}}
+        <tr>
+            <th scope="row">{{inc @index}}</th>
+            <td>{{this.Couponname}}</td>
+            <td>{{this.Couponcode}}</td>
+            <td>{{this.Discountprice}}</td>
+            <td>{{this.Discountpricelimit}}</td>
+            <td>{{this.Couponlimit}}</td>
+            <td>{{this.Date}}</td>
+            
+            {{!-- <td> <img src="/bannerimages/{{this.image.[0]}}" alt="" width="50em"></td> --}}
+            <td>
+
+               
+
+                <a class="btn btn-outline-danger" href="/admin/deletcoupon/{{this._id}}"
+                    onclick="return confirm('Are you sure you want to Delete ?')">Delete</a>
+            </td>
+
+        </tr>
+
+        <div class="modal fade" id="addcoupon" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLongTitle">edit banner</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <form action="/admin/editbanner/{{this._id}}" method="post" id="bannerform"
+                        enctype="multipart/form-data">
+                        <div class="modal-body">
+
+
+
+
+                            <div class="form-row" style="margin-bottom: 20px;">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Banner Title"
+                                        name="bannerheading" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-bottom: 20px;">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Banner sub-Title"
+                                        name="bannersubheading" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-bottom: 20px;">
+                                <div class="col">
+                                    <input type="text" class="form-control  " placeholder="Banner description"
+                                        name="description" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-bottom: 20px;">
+
+                                <label for="exampleFormControlFile1" class="ml-1">Add Image</label>
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image"
+                                    required>
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+
+                    </form>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        {{/each}}
+    </tbody>
+</table>

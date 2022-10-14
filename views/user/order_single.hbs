@@ -1,0 +1,117 @@
+<!-- axios -->
+
+<div class="container">
+
+  <div class="card mt-5">
+    <div class="card-header text-success">
+      <div>Products </div>
+      <div><a href="/invoice/{{orderItemsDetails._id}}">Invoice</a></div>
+
+    </div>
+
+
+
+    {{#each orderitems}}
+
+
+    <div class="card-body">
+      <div class="d-flex flex-row bd-highlight justify-content-between align-items-center text-dark">
+
+        <div class="px-1"><img src="/productimages/{{this.productId.image.[0]}}" width="50em" alt=""></div>
+        <div class="px-1">{{this.productId.productname}}</div>
+        <div class="px-1">{{this.quantity}}</div>
+        <div class="px-1">{{this.productId.discountprice}}</div>
+
+        <div class="px-1 {{#if (eq ../orderItemsDetails.productStatus " Cancelled")}} text-danger{{/if}}">
+          {{../orderItemsDetails.productStatus}}</div>
+        <div class="px-1">{{../orderItemsDetails.paymentMethod}}</div>
+        <div class="px-1">
+          {{#unless (eq ../orderItemsDetails.productStatus "Cancelled")}}<span style="font-weight: 600;"><button
+              type="button" class="btn  btn-danger border-radius" onclick="cancelorders('{{../orderItemsDetails._id}}')"
+              style=" background-color: red;">Cancel</button></span>
+          {{/unless}}
+          {{#if (eq ../orderItemsDetails.productStatus "Cancelled")}} <span
+            class="text-danger font-weight-bold">Cancelled</span> {{/if}}
+
+
+        </div>
+
+
+
+
+
+      </div>
+
+    </div>
+
+
+    {{/each}}
+  </div>
+
+
+
+
+
+  <div class="card">
+    <div class="card-header text-success">
+      Delivery address
+    </div>
+    <div class="card-body">
+      <ul class="h6" style="list-style-type:none;">
+        <li>{{address.name}}</li>
+        <li>{{address.housename}}, {{address.villageorcity}}</li>
+
+        <li>{{address.apartment}}, {{address.postoffice}} PO ,PIN {{address.pin}}</li>
+
+        <li> {{address.district}}, {{address.state}}</li>
+        <li>
+          MOB +91-{{address.mobile}},
+          <ion-icon name="location-outline"></ion-icon> {{address.landmark}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  function cancelorders(id) {
+
+    swal({
+      title: "Are you sure?",
+      text: "All items in this order will be cancelled",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then(async(willDelete) => {
+        if (willDelete) {
+          console.log(id,'ififiififiididiidididididiidiidid')
+
+          await axios({
+            method: 'post',
+            url: '/cancelorder/' + id
+
+          }).then((response) => {
+            console.log(response, 'this is response');
+
+            location.reload()
+          }).catch((error) => {
+            console.log(error, "catch error at delivered axios.")
+          })
+
+          swal("Your order is cancelled :( !", {
+            icon: "success",
+          });
+        } else {
+          swal("Thank you!");
+        }
+      })
+
+
+
+
+
+
+
+  }
+</script>

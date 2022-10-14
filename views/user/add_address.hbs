@@ -1,0 +1,61 @@
+<div class="container mt-5 ">
+
+  <h3 class="text-primary mb-5">
+    Enter Address details
+</h3>
+
+
+<form method="post" action="/address/{{userid}}">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" placeholder="email" name="email">
+    </div>
+    <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input type="text" class="form-control" id="phone" placeholder="Phone Number" name="phone">
+  </div>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+  </div>
+  <div class="form-group">
+    <label for="housename">House/Building Name</label>
+    <input type="text" class="form-control" id="housename" placeholder="House name,Apartment, or studio" name="housename">
+  </div>
+  <div class="form-group">
+    <label for="area">Area</label>
+    <input type="text" class="form-control" id="area" placeholder="Area" name="Road name, Area, Colony" name="area">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="district">District</label>
+      <input type="text" class="form-control" id="district" placeholder="District" name="district">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="state">State</label>
+      <select id="state" class="form-control" name="state">
+        <option selected>Choose...</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Gujarath">Gujarath</option>
+        <option value="Maharashtra">Maharashtra</option>
+
+        <option value="Rajastan">Rajastan</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="pin">Pincode</label>
+      <input type="text" class="form-control" id="pin" name="pin">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Save Address</button>
+</form>
+
+
+
+
+</div>
