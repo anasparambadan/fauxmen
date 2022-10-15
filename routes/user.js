@@ -75,17 +75,7 @@ let verifylogin = (req, res, next) => {
     res.redirect('/login')
   }
 }
-// router.get('/', , function (req, res,next) {
 
-
-
-//   if( req.session.loggedin){
-//     res.render('user/user_home',{user:true,loggedin:true})
-//   }
-//   else {
-//     res.render('user/user_home',{user:true,loggedin:false})  
-//   }
-// });
 
 /*=========================user sign in ========================*/
 
@@ -337,7 +327,7 @@ router.get('/cart', verifylogin, (req, res) => {
 
 
 router.post('/addtocart/:_id', verifylogin, (req, res) => {
-  cart_controller.addproductdetails(req.session.user._id).then((productdetails) => {
+  //cart_controller.addproductdetails(req.session.user._id).then((productdetails) => {
     cart_controller.addtocart(req.params._id, req.session.user._id).then((response) => {
       // console.log(productdetails,'productdetalis addtocartpost');
       cart = response.cart
@@ -345,7 +335,7 @@ router.post('/addtocart/:_id', verifylogin, (req, res) => {
       res.json(response)
     })
   })
-})
+//})
 
 router.get('/deletecart/:_id', verifylogin, (req, res) => {
   let userid = req.session.user._id
