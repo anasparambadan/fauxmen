@@ -1,20 +1,20 @@
 require("dotenv").config()
-var createError = require('http-errors');
-var express = require('express');
+let createError = require('http-errors');
+let express = require('express');
 
 const path = require('path')
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
 
 /* my insta*/
 const hbs = require('express-handlebars')
 const session = require('express-session')
 const mongoose = require('mongoose')
 
-var userRouter = require('./routes/user');
-var adminRouter = require('./routes/admin');
-var helpers = require('handlebars-helpers')();
-var app = express();
+let userRouter = require('./routes/user');
+let adminRouter = require('./routes/admin');
+let helpers = require('handlebars-helpers')();
+let app = express();
 
 
 

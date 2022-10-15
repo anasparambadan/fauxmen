@@ -191,7 +191,7 @@
                               </div>
                               <div class="col">
                                 <input type="text" class="form-control" placeholder="Apartment" name="apartment"
-                                  required>
+                                  >
                               </div>
                             </div>
                             <div class="form-row" style="margin-bottom: 20px;">
@@ -571,11 +571,35 @@
         if (e.data.status) {
           console.log(e.data.status, '......1111111111111')
           console.log(order.receipt, '----------------------------')
-          alert('payment success')
+           swal({
+                title: "Good job!",
+                text: "Order Successfull!",
+                icon: "success",
+                button: false,
+                timer:1000,
+
+            });
+            setTimeout(()=>{
+
+            },6000)
+          
+
+
+
           location.href = `/orderConfirm/${order.receipt}`;
 
         } else {
-          alert('.........payment failed')
+           swal({
+                title: "Good job!",
+                text: "Item added to wishlist!",
+                icon: "success",
+                button: false,
+                timer:1000,
+
+            });
+            setTimeout(()=>{
+
+            },6000)
         }
       })
     } catch (error) {
