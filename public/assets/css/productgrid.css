@@ -82,7 +82,7 @@
 
 .product-grid:hover .add-to-cart {
     color: #000;
-    background-color: #ade436;
+    background-color: #ffe4a0;
 }
 
 @media screen and (max-width: 990px) {
@@ -113,7 +113,7 @@
 .product-grid2 .product-sale-label,
 .product-grid2 .product-new-label{
     color: #fff;
-    background: #15b455;
+    background: #ffe4a0;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
@@ -125,7 +125,7 @@
     transition: all 0.3s ease-in-out;
 }
 .product-grid2 .product-new-label{
-    background: #86d03b;
+    background: #ffe4a0;
     font-size: 12px;
     right: auto;
     left: 10px;
@@ -162,8 +162,8 @@
     transition: all 0.7s ease 0s;
 }
 .product-grid2 .product-links li a:hover{
-    color: #fff;
-    background: #159d1f;
+    color: rgb(32, 16, 16);
+    background: #ffe4a0;
 }
 .product-grid2:hover .product-links li{ opacity: 1; }
 .product-grid2 .rating{
@@ -180,7 +180,7 @@
     transition: all 0.3s ease-in-out;
 }
 .product-grid2 .rating li{
-    color: #2dc64c;
+    color: #ffe4a0;
     font-size: 13px;
     margin: 0 -2px;
 }

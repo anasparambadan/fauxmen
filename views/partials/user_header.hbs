@@ -13,35 +13,27 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between " 
+        <div class=" collapse navbar-collapse flex-fill  d-lg-flex justify-content-end " style="background-color: #102540;"
             id="templatemo_main_nav">
-            <div class="flex-fill">
-                <ul class="nav navbar-nav d-flex justify-content-start  mx-lg-auto " >
-                    <li class="nav-item">
+            <div class="d-flex justify-content-end" >
+                <ul class="nav navbar-nav d-flex justify-content-end  mx-lg-auto " >
+                    <li class="nav-item " >
                         <a class="nav-link mx-2"  href="/">Home</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link mx-2"  href="/shop">Shop</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-2"  href="#categ">Contact</a>
-                    </li>
+                
                 </ul>
             </div>
-            <div class="navbar align-self-center d-flex " >
-               
-             
-
-
-                
-
+            <div class="navbar  d-flex justify-content-end align-items-center" style="background-color: #102540;">
 
                 <div class="dropdown">
 
                     
-                    <div class=" text-light mr-3 dropdown-toggle " id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{#if loggedin}}{{username}}{{else}}User{{/if}}</div>
+                    <div class=" text-light mr-3 dropdown-toggle w-100" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >{{#if loggedin}}{{username}}{{else}}User{{/if}}</div>
                     <div class="dropdown-menu bg-dark" style="margin-right:60px ;" aria-labelledby="dropdownMenuButton">
                         {{#if loggedin}}
 
@@ -54,27 +46,29 @@
                         </a>
                         {{/if}}
 
-                        <a class="dropdown-item" href="/wlist">wishlist</a>
-                        <a class="dropdown-item" href="/myorders">Orders</a>
-                        <a class="dropdown-item" href="/profile">Profile</a>
+                        <a class="dropdown-item"  href="/wlist">wishlist</a>
+                        <a class="dropdown-item"  href="/myorders">Orders</a>
+                        <a class="dropdown-item"  href="/profile">Profile</a>
                     </div>
 
                 </div>
+                <div>
                 
-                  <a id="cartscount" class="nav-icon position-relative text-decoration-none " href="/cart">
+                  <a id="cartscount" class="nav-icon position-relative text-decoration-none" href="/cart">
                     <i class="fa fa-fw fa-cart-arrow-down text-light mr-1"></i>
                     {{#if loggedin}}
                     <span 
                         class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{cartcount}}</span>
                         {{/if}}
                 </a>
+                </div>
                 
 
                 
                 <div class="ml-4">
                     {{#unless loggedin}}
              
-                    <a href="/login" class="" style="text-decoration: none;"> <small>Sign in/Join fauxmen</small> </a>
+                    <a href="/login"  style="text-decoration: none;" > <small>Sign in/Join fauxmen</small> </a>
                     {{/unless}}
                 </div>
             </div>
