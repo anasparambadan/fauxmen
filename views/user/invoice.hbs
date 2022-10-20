@@ -231,23 +231,25 @@
                             <div class="invoice-price-left">
                                 <div class="invoice-price-row">
                                     <div class="sub-price">
-                                        <small>SUBTOTAL</small>
+                                        <small>TOTAL</small>
                                         <span class="text-inverse">₹ {{orderItemsDetails.grandtotal}}</span>
                                     </div>
+                                    {{#if orderItemsDetails.Coupon}}
                                     <div class="sub-price">
                                         <i class="fa fa-minus text-muted"></i>
                                     </div>
                                     <div class="sub-price">
 
-                                        <small>COUPEN DISCOUNT : {{orderItemsDetails.discount}}</small>
+                                        <small>COUPEN DISCOUNT : {{orderItemsDetails.Coupon}}</small>
 
                                         <!-- <span class="text-inverse">00</span> -->
                                     </div>
+                                    {{/if}}
                                 </div>
                             </div>
                       
                             <div class="invoice-price-right">
-                                <small>TOTAL</small> <span class="f-w-600">₹{{orderItemsDetails.grandtotal}}</span>
+                                <small>TOTAL AMOUNT</small> <span class="f-w-600" id="total">₹{{orderItemsDetails.grandtotal}}</span>
                             </div>
                           
                         </div>
@@ -292,6 +294,13 @@
             window.print();
 
         }
+        let total = {{orderItemsDetails.grandtotal}} - {{orderItemsDetails.Coupon}}
+        let finalammount = document.getElementById('total')
+        finalammount.innerHTML = total
+
+
+
+
 
     </script>
     <style>

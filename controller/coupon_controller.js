@@ -87,6 +87,9 @@ module.exports={
                     }
                     else{
                         response.status=false
+                        console.log(response,'response atr a false statuts...................');
+                        resolve(response)
+                       
                     }
                 })
                 
@@ -103,9 +106,17 @@ module.exports={
 
     couponUser:(userid,coupon)=>{
         return new Promise(async(resolve,reject)=>{
+            console.log(coupon.code,'coupon code at coupon usr............... ')
+            console.log(userid,'user id at coupon usr...................');
             try{
                 let coupons = await couponmodel.findOne({Couponcode:coupon.code})
-                await couponmodel.findByIdAndUpdate(coupons._id,{$push:{useId:userid}}).then((response)=>{
+                console.log(coupons,'coupons at couponuser/////..............');
+                let cid = coupons._id
+                console.log(cid,'coupons at coupoinuser.,..,.,.,.,.,,,,.,.,,..,');
+                let couponss = await couponmodel.findOne({_id:cid})
+                console.log(couponss,'couponsss.........m..............m.........');
+
+                await couponmodel.findByIdAndUpdate(coupons._id, {$push: { useId: userid}}).then((response)=>{
                     resolve(response)
                 })
 

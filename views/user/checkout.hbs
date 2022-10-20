@@ -158,8 +158,8 @@
               <h4><b>Checkout </b></h4>
               <h6>Choose Your delivery Address </h6>
               <div style="text-align: end;">
-                <a href="" data-toggle="modal" data-target="#ModalCenter1">
-                  <ion-icon name="add-circle-outline" style="color: green;"></ion-icon>Add Address
+                <a href="" class="btn btn-outline-dark" data-toggle="modal" data-target="#ModalCenter1">
+                  Add Address
                 </a>
 
                 {{!-- ........................Modal add address............................ --}}
@@ -190,8 +190,7 @@
                                   required>
                               </div>
                               <div class="col">
-                                <input type="text" class="form-control" placeholder="Apartment" name="apartment"
-                                  >
+                                <input type="text" class="form-control" placeholder="Apartment" name="apartment">
                               </div>
                             </div>
                             <div class="form-row" style="margin-bottom: 20px;">
@@ -210,7 +209,7 @@
                                   placeholder="District" name="district">
                               </div>
                               <div class="col">
-                                <input type="text" style="text-transform: capitalize;" class="form-control"
+                                <input type="number" style="text-transform: capitalize;" class="form-control"
                                   placeholder="PIN NO" name="pin">
                               </div>
                             </div>
@@ -349,45 +348,6 @@
 
         </div>
 
-        <!--select payment metode-->
-
-
-
-
-
-
-
-
-
-
-
-        {{!-- <form action="/shipping" method="post"> --}}
-          {{!-- {{#each address.addresses}}
-          <div class="row border-top">
-            <div class="form-check d-flex justify-content-between">
-              <div class="my-auto mx-3">
-                <input value="{{this._id}}" name="address" type="radio" class="form-check-input" checked>
-              </div>
-              <div class="row main align-items-center">
-                <ul class="h6" style="list-style-type:none;">
-                  <li>{{this.name}}</li>
-                  <li>{{this.housename}}, {{this.villageorcity}}</li>
-
-                  <li>{{this.apartment}}, {{this.postoffice}} PO ,PIN {{this.pin}}</li>
-
-                  <li> {{this.district}}, {{this.state}}</li>
-                  <li>
-                    MOB +91-{{this.mobile}},
-                    <ion-icon name="location-outline"></ion-icon> {{this.landmark}}
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-          {{/each}} --}}
-
-
       </div>
       <div class="col-md-3 summary" style="background-color: #547a9d;">
 
@@ -429,11 +389,23 @@
 
           <div>
             <div class="row" style="border-top: 1px solid white; padding: 2vh 0; color: white">
-              <div class="col h4">Total PRICE</div>
+              <div class="col h4">Total </div>
               <div class="col text-right"><span id="coupontotal">₹ {{totalamount.total}}</span> </div>
+
+            </div>
+            <div class="row">
+              <div class="col h4">Coupon Discount</div>
+              <div class="col text-right"><span id="coupondicount">₹ 0</span> </div>
+            </div>
+            <div class="row align-items-center"
+              style="border-top: 1px solid white; padding: 2vh 0; color: white; border-bottom: 1px solid white; padding: 2vh 0; color: white">
+              <div class="col h4">Total payable</div>
+              <div class="col text-right"><span id="totalpayable"> <strong> ₹ {{totalamount.total}}</strong></span>
+              </div>
             </div>
 
-            <h6 class="text-uppercase mb-3">Give code</h6>
+
+            <h6 class="text-uppercase mt-2">Have coupon?</h6>
 
             <div class="mb-1 d-flex flex-row">
               <div class="">
@@ -465,20 +437,42 @@
 
   function couponapply() {
     let couponcode = $('input[type="text"][name="coupon"]').val()
-    console.log(couponcode, '.......coupon****')
     axios({
       method: 'post',
       url: '/applycoupon',
       data: { code: couponcode }
     }).then((e) => {
-      console.log(e, 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee......>>>')
+      console.log(e, 'coupoin eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee++++++e++e+e+e+e+++++++e++e+e+e')
+
       if (e.data.coupon_grandetotal == undefined) {
+        swal({
+
+          text: "Coupon not exist!",
+          icon: "warning",
+          button: false,
+          timer: 1000
+
+
+
+        });
         console.log('coupon doesnt exist')
       }
       else {
         console.log('coupon existt')
+        swal({
+          title: "Great",
+          text: "Coupon applied successfully!",
+          icon: "success",
+          button: false,
+          timer: 1000
 
-        let finalamount = document.getElementById('coupontotal')
+
+
+        });
+
+        let finalamount = document.getElementById('totalpayable')
+        let coupondis = document.getElementById('coupondicount')
+        coupondis.innerHTML = e.data.coupon.Discountprice
         finalamount.innerHTML = e.data.coupon_grandetotal
         console.log('coupon applied')
       }
@@ -504,28 +498,44 @@
 
     let coupontotal = document.getElementById('coupontotal').innerHTML
 
+    if (address) {
 
+      try {
+        axios.post('/payment', { address, billtype })
+          .then((e) => {
 
+            if (billtype == 'COD') {
+              location.href = `/orderConfirm/${e.data.orderDetails._id}`
+            } else {
+              razorpayPayment(e.data.data)
+              console.log(e.data.data, 'datasasdasdasdas')
 
-    try {
-      axios.post('/payment', { address, billtype })
-        .then((e) => {
-          console.log(e, '77777777777eeeeeeeeeeeeeeeeee77777777777eeeeeeeeee7777777777777')
-          console.log(billtype, "oreder confooooormmmmmmmmmm")
-          if (billtype == 'COD') {
-            // e.data.data.billtype = "COD"
-            console.log(e.data.orderDetails, 'oooooooooooooooo')
-            location.href = `/orderConfirm/${e.data.orderDetails._id}`
+            }
+          })
+      } catch (error) {
+        console.log('errrorr ....axios', error)
+      }
 
-          } else {
-            razorpayPayment(e.data.data)
-            console.log(e.data.data, 'datasasdasdasdas')
-
-          }
-        })
-    } catch (error) {
-      console.log('errrorr ....axios', error)
     }
+    else {
+      swal({
+
+        text: "Select/Add Delivery address!",
+        icon: "warning",
+        button: false,
+        timer: 1000
+
+
+
+      });
+
+
+    }
+
+
+
+
+
 
     //location.href= `/payment/${address._id}`
   }
@@ -571,35 +581,35 @@
         if (e.data.status) {
           console.log(e.data.status, '......1111111111111')
           console.log(order.receipt, '----------------------------')
-           swal({
-                title: "Good job!",
-                text: "Order Successfull!",
-                icon: "success",
-                button: false,
-                timer:1000,
+          swal({
+            title: "Good job!",
+            text: "Order Successfull!",
+            icon: "success",
+            button: false,
+            timer: 1000,
 
-            });
-            setTimeout(()=>{
+          });
+          setTimeout(() => {
 
-            },6000)
-          
+          }, 6000)
+
 
 
 
           location.href = `/orderConfirm/${order.receipt}`;
 
         } else {
-           swal({
-                title: "Good job!",
-                text: "Item added to wishlist!",
-                icon: "success",
-                button: false,
-                timer:1000,
+          swal({
+            title: ":(",
+            text: "Order failed!",
+            icon: "warning",
+            button: false,
+            timer: 1000,
 
-            });
-            setTimeout(()=>{
+          });
+          setTimeout(() => {
 
-            },6000)
+          }, 6000)
         }
       })
     } catch (error) {

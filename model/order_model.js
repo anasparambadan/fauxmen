@@ -43,8 +43,8 @@ const userSchema = new mongoose.Schema({
     discount: {
         type: Number
     },
-    coupon: {
-        type: String
+    Coupon: {
+        type: Number
     }, date: {
         type: String
     },

@@ -1,4 +1,5 @@
-<style>.card {
+<style>
+  .card {
   width: 350px;
   padding: 10px;
   border-radius: 20px;
@@ -13,7 +14,10 @@
 }
 
 body {
-  background: #eee;
+  background-image:url(/assets/img/otp.jpg);
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .mobile-text {
@@ -38,19 +42,19 @@ body {
 }" </style>
 
 <div class ="d-flex justify-content-center align-items-center container">
-        <div class="card py-5 px-3">
+        <div class="card py-5 px-3" style="background-color: rgb(227, 227, 227); border-radius: 20px;">
             <form action="/otpverify" method="post">
 
-                <h5 class="m-0">Mobile phone verification</h5><span class="mobile-text">Enter the code we just send on your mobile phone <b class="text-danger">+91 86684833</b></span>
+                <h5 class="m-0">Mobile phone verification</h5><span class="mobile-text text-dark">Enter the code we just send on your mobile phone </span>
             <div class="d-flex flex-row mt-5">
                 <input type="text" class="form-control" autofocus="" name="otp">
 
-                <button type="submit" class="btn btn-primary btn-lg">Verify</button>
+                <button type="submit" class="btn btn-primary btn-sm">Verify</button>
             
-            {{!-- </div>
+            </div>
                 <div class="text-center mt-5"><span class="d-block mobile-text">Don't receive the code?</span>
                 <span class="font-weight-bold text-danger cursor">Resend</span>
-            </div> --}}
+            </div>
 
             </form>
             

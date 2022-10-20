@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const CouponSchema = new mongoose.Schema({
   userId: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    type:mongoose.Schema.Types.ObjectId,
+    ref: 'users'
   }],
   Couponname: {
     type: String

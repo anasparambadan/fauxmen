@@ -313,17 +313,6 @@ router.get('/cart', verifylogin, (req, res) => {
 
 })
 
-// router.get('/addtocart/:_id', verifylogin, (req, res) => {
-//   //cart_controller.addproductdetails(req.session.user._id).then((productdetails) => {
-//     cart_controller.addtocart(req.params._id, req.session.user._id).then((response) => {
-//       // console.log('oooooooooooooooooooooooooooooooooooooooo');
-//       // console.log(productdetails,'productdetalis addtocart get');
-//       cart = response.cart
-//       cartempty = response.cartempty
-//       res.json(response)
-//     })
-//   //})
-// }),
 
 
 router.post('/addtocart/:_id', verifylogin, (req, res) => {
@@ -676,15 +665,21 @@ router.post('/applycoupon', verifylogin, (req, res) => {
   coupon_controller.applycoupon(req.body, userid).then((e) => {
 
     console.log(e, 'eeeeeeeeeeee at post user aplycoupn.......................');
-    if (e) {
+    if (e.status) {
       req.session.coupon = e
       console.log(req.session.coupon, '........session.coupon');
+      
+      coupon_controller.couponUser(userid, req.body).then((couponuser) => {
+        res.json(e)
+
+      })
+
+    }
+    else{
       res.json(e)
 
     }
-    coupon_controller.couponUser(userid, req.body).then((e) => {
-
-    })
+   
   })
 
 })

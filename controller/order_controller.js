@@ -41,6 +41,7 @@ module.exports = {
             console.log(productdetails, 'this is cart details @ place order');
 
             if (coupon) {
+              console.log(coupon.coupon_discount,'coupon discount.........');
               const newOrder = new orderModel({
 
                 userId: userid,
@@ -53,6 +54,8 @@ module.exports = {
                 productStatus: 'Pending',
                 grandtotal: coupon.coupon_grandetotal,
                 date: newdate,
+                Coupon: coupon.coupon_discount
+
               })
   
               newOrder.save().then(async (newOrder) => {

@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
 
 <div class="container mt-3 ">
+  <a class="btn btn-outline-primary mb-2" onclick="exportCsv()">Sales Report</a>
   <table id="example" class="table " style="width:100%">
     <thead class="thead-light ">
       <tr>
@@ -23,12 +24,10 @@
       {{#each orders}}
       <tr>
         <td style="text-align: center;vertical-align: middle;">{{inc @index}}</td>
-        <td style="text-align: center;vertical-align: middle;">{{this.userId.name}} <br> {{this.userId.phonenumber}}
-        </td>
+        <td style="text-align: center;vertical-align: middle;">{{this.userId.name}} <br> {{this.userId.phonenumber}}</td>
         <td style="text-align: center;vertical-align: middle;">{{this.userId.email}}</td>
-        <td style="text-align: center;vertical-align: middle;">{{#each this.orderitems}} {{this.productId.productname}}
-          {{/each}}</td>
-        <td style="text-align: center;vertical-align: middle;">{{#each this.orderitems}}{{this.quantity}} <br> {{/each}}
+        <td style="text-align: center;vertical-align: middle;"><ol>{{#each this.orderitems}} <li>{{this.productId.productname}}</li>{{/each}}</ol></td>
+        <td style="text-align: center;vertical-align: end;">{{#each this.orderitems}}{{this.quantity}} <br> {{/each}}
         </td>
         <td style="text-align: center;vertical-align: middle;">{{this.grandtotal}}</td>
         <td style="text-align: center;vertical-align: middle;">{{this.paymentMethod}}</td>
@@ -61,19 +60,15 @@
           <h6>Item delivered</h6>
           {{/if}}
 
-           {{#if (eq this.productStatus "Pending")}}
-            <span style="font-weight: 600;"><button type="button"
-              class="btn btn-sm  btn-danger border-radius"
-              onclick="cancelorders('{{this._id}}')"
-              style=" background-color: red;">Cancel</button></span>
+          {{#if (eq this.productStatus "Pending")}}
+          <span style="font-weight: 600;"><button type="button" class="btn btn-sm  btn-danger border-radius"
+              onclick="cancelorders('{{this._id}}')" style=" background-color: red;">Cancel</button></span>
 
           {{/if}}
 
-           {{#if (eq this.productStatus "Shipped")}}
-            <span style="font-weight: 600;"><button type="button"
-              class="btn btn-sm  btn-danger border-radius"
-              onclick="cancelorders('{{this._id}}')"
-              style=" background-color: red;">Cancel</button></span>
+          {{#if (eq this.productStatus "Shipped")}}
+          <span style="font-weight: 600;"><button type="button" class="btn btn-sm  btn-danger border-radius"
+              onclick="cancelorders('{{this._id}}')" style=" background-color: red;">Cancel</button></span>
           {{/if}}
           {{#if (eq this.productStatus "Cancelled")}}
           <h6 class="text-danger">Cancelled</h6>
@@ -114,17 +109,39 @@
 
   function cancelorders(id) {
     console.log("axios response", id)
-    axios({
-      method: 'post',
-      url: '/cancelorder/' + id
 
-    }).then((response) => {
-      console.log(response, 'this is response');
 
-      location.reload()
-    }).catch((error) => {
-      console.log(error, "catch error at delivered axios.")
+    swal({
+      title: "Are you sure?",
+      text: "All items in this order will be cancelled",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     })
+      .then(async (willDelete) => {
+        if (willDelete) {
+          console.log(id, 'ififiififiididiidididididiidiidid')
+
+          axios({
+            method: 'post',
+            url: '/cancelorder/' + id
+
+          }).then((response) => {
+            console.log(response, 'this is response');
+
+            location.reload()
+          }).catch((error) => {
+            console.log(error, "catch error at delivered axios.")
+          })
+
+          swal("Your order is cancelled :( !", {
+            icon: "success",
+          });
+        } else {
+          swal("Thank you!");
+        }
+      })
+
   }
 
   function shiporder(id) {
@@ -204,4 +221,20 @@
 
   }
 
+</script>
+<script>
+  let dataTable = new simpleDatatables.DataTable("#example")
+
+  let date = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+  function exportCsv() {
+    dataTable.export({
+      type: "csv",
+      skipColumn: [0, 13, 14],
+      filename: "order_report" + " " + date
+    });
+  }
 </script>

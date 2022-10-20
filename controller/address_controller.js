@@ -16,6 +16,7 @@ module.exports = {
           addresses: addressData
         }).save().then((response) => {
           console.log(response, 'hhhhhhiioiioiiohoih')
+          resolve(response)
         })
       } else {
         await addressModel.findOneAndUpdate({ userId: userid }, { $push: { addresses: addressData } }).then((response) => {
