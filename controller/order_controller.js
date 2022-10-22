@@ -110,7 +110,7 @@ module.exports = {
     console.log(userid, 'is the userid')
     return new Promise(async (resolve, reject) => {
       try {
-        await orderModel.find({ userId: userid }).populate('orderitems.productId').lean().then((response) => {
+        await orderModel.find({ userId: userid }).populate('orderitems.productId').sort({createdAt:-1}).lean().then((response) => {
           console.log(response);
           resolve(response);
 

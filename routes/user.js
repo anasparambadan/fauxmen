@@ -257,12 +257,17 @@ router.get('/shop_catgry/:_id', (req, res) => {
 
 
 
-router.get('/single_product/:id', (req, res) => {
+router.get('/single_product/:id', (req, res,next) => {
   let productID = req.params.id
+  console.log('error aaa..............11111111');
   product_controller.getPoductvalue(productID).then((productData) => {
+    console.log('error aaa..............2122222');
     console.log(productData, 'product data category.....................');
     res.render('user/single_product', { productData, user: true, loggedin: req.session.loggedin, username: req.session.username, cartcount })
 
+  }).catch((err)=>{
+    console.log('error aaa..............5555555');
+    next(err)
   })
 
 

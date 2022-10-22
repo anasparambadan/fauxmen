@@ -1,3 +1,5 @@
+
+{{#if (gt itemscount 0)}}
 <div class="card">
   <div class="card-header py-3">
     <div class="row">
@@ -20,19 +22,20 @@
         <a class="bg-image hover-overlay hover-zoom ripple rounded" href="/single_product/{{this.productId._id}}"
           data-mdb-ripple-color="light">
           <img src="/productimages/{{this.productId.image.[0]}}" class="" alt="Blue Jeans Jacket" width="50em" />
-          
-            <div class="float-right" style="text-decoration: none;color:black !important"><strong>{{this.productId.productname}}</strong></div>
-         
+
+          <div class="float-right" style="text-decoration: none;color:black !important">
+            <strong>{{this.productId.productname}}</strong></div>
+
         </a>
-        
+
         <!-- Image -->
       </div>
 
 
 
-      
-      <div><s><span
-            class="text-danger">{{this.productId.price}}</span></s>&nbsp;&nbsp;<strong class="text-primary" style="font-size: 20px;">{{this.productId.discountprice}}</strong>&nbsp;&nbsp;<span
+
+      <div><s><span class="text-danger">{{this.productId.price}}</span></s>&nbsp;&nbsp;<strong class="text-primary"
+          style="font-size: 20px;">{{this.productId.discountprice}}</strong>&nbsp;&nbsp;<span
           class="text-success">{{this.productId.percentage}}%off</span>
       </div>
       <div><a class="btn btn-warning btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item"
@@ -54,6 +57,22 @@
     {{/each}}
 
   </div>
+  {{else}}
+
+  <div class="container my-5">
+    <div class="row my-5">
+      <!-- Main Content -->
+      <div class="col-sm-12 text-center empty-page my-5">
+       <i class="fa-solid fa-4x fa-heart" ></i>
+        <h2>Wishlist is empty!</h2>
+        <p class="mb-3 pb-1">No products were added to the Wish List.</p>
+        <a href="/shop" class="btn btn-warning">Wishlist your favourite</a>
+      </div>
+      <!-- End Main Content -->
+    </div>
+  </div>
+
+  {{/if}}
   <script>
     function deleteitem(id) {
 

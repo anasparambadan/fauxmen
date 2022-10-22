@@ -505,6 +505,22 @@
           .then((e) => {
 
             if (billtype == 'COD') {
+
+              swal({
+            title: "Good job!",
+            text: "Order Successfull!",
+            icon: "success",
+            button: false,
+            timer: 1000,
+
+          });
+          setTimeout(() => {
+
+          }, 6000)
+
+
+
+
               location.href = `/orderConfirm/${e.data.orderDetails._id}`
             } else {
               razorpayPayment(e.data.data)
